@@ -1,0 +1,27 @@
+<h1>Hotels Filter widget</h1>
+  <div *ngIf="items$ | async; let items; else loading">
+    <ul>
+      <li *ngFor="let item of items">
+        {{ item.payload.val().name }} @ {{ item.payload.val().location }} / {{ item.payload.val().rating }}
+        <!-- <code>{{ item.payload.key }}</code> -->
+      </li>
+    </ul>
+    <div *ngIf="items.length === 0">No results, try clearing filters</div>
+  </div>
+  <ng-template #loading>Loading&hellip;</ng-template>
+  <div>
+    <h4>Filter by rating</h4>
+    <button (click)="filterByRating(2)">2</button>
+    <button (click)="filterByRating(3)">3</button>
+    <button (click)="filterByRating(4)">4</button>
+    <button (click)="filterByRating(5)">5</button>
+    <button (click)="filterByRating(null)" *ngIf="this.filter$.getValue()">
+      <em>clear filter</em>
+    </button>
+    <hr>
+    <h4>Filter by location</h4>
+    <button (click)="filterByLocation('bangalore')">bangalore</button>
+    <button (click)="filterByLocation(null)" *ngIf="this.filter$.getValue()">
+      <em>clear filter</em>
+    </button>
+  </div>
